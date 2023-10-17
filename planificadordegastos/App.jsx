@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View, Pressable, Image, Text, Modal } from 'react-native';
 import Header from './components/Header';
 import NuevoPresupuesto from './components/NuevoPresupuesto';
 import { ControlPresupuesto } from './components/ControlPresupuesto';
+import FormularioGasto from './components/FormularioGasto';
 
 
 export default function App(){
   const [isPresupuestoValido, setIsPresupuestoValido] = useState(false)
   const [presupuesto, setPresupuesto] = useState(0)
+  const [gastos,setGastos] = useState([
+
+  ])
+  const [modal,setModal] = useState(false)
 
   const handleNuevoPresupuesto = (presupuesto) => {
     if (Number(presupuesto) > 0) {
@@ -23,8 +28,16 @@ export default function App(){
         <Header/>
 
         {isPresupuestoValido ? (
-        <ControlPresupuesto
-        presupuesto={presupuesto}/>
+          
+          
+          <><ControlPresupuesto
+        presupuesto={presupuesto}
+        
+        gastos={gastos}
+        />
+        <Text> Hello</Text>
+        </>
+    
         ):
         ( 
         <NuevoPresupuesto 
@@ -33,6 +46,27 @@ export default function App(){
         handleNuevoPresupuesto={handleNuevoPresupuesto}/>
         ) }      
       </View>
+          {modal && (
+            <Modal
+              animationType='slide'
+              visible={modal}>
+              <FormularioGasto setModal={setModal}
+              modal={modal}/>
+              </Modal>
+
+          )}
+          
+
+      {isPresupuestoValido&&(
+        <Pressable
+        onPress={()=>setModal(!modal)}
+        >
+          <Image
+            styles = {styles.imagen}
+            source={require('./assets/img/add.png')}
+          />
+        </Pressable>
+      )}
     </View>
   )
 }
@@ -41,9 +75,14 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     backgroundColor: '#c660de',
-    transform:[{ translateY:40}],
   },
- 
+ imagen:{
+  width: 60,
+  height: 60,
+  position: 'absolute',
+  top: 120,
+  right: 20,
+ },
 
   
   header: {

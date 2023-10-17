@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Text, View, Image, StyleSheet} from 'react-native'
 import globalStyles from '../styles'
 import { formateadorCantidad } from '../helper'
 
-export const ControlPresupuesto = ({presupuesto}) => {
+export const ControlPresupuesto = ({presupuesto,gastos}) => {
+    const [disponible,setDisponible] = useState(0)
+    const [gastado,setGastado] = useState(0)
+
+    useEffect(()=>{
+        const totalGastado = gastos.reduce((total,gasto)=> Number(gasto.cantidad) + total, 0)
+        const totalDisponible = presupuesto - totalGastado
+        setGastado(totalGastado)
+        setDisponible(totalDisponible)
+
+        console.log(totalDisponible)
+    },[])
+
   return (
     < View style={styles.contenedor}>
         <View style={styles.centrarGrafico}>
@@ -18,10 +30,10 @@ export const ControlPresupuesto = ({presupuesto}) => {
             <Text style={styles.labelGastos}>Presupuesto : {formateadorCantidad(presupuesto)}</Text>
         </Text>
         <Text>
-            <Text style={styles.labelGastos}>Disponible : {formateadorCantidad(presupuesto)}</Text>
+            <Text style={styles.labelGastos}>Disponible : {formateadorCantidad(disponible)}</Text>
         </Text>
         <Text>
-            <Text style={styles.labelGastos}>Gastos : {formateadorCantidad(presupuesto)}</Text>
+            <Text style={styles.labelGastos}>Gastos : {formateadorCantidad(gastado)}</Text>
         </Text>
             
         </View>
