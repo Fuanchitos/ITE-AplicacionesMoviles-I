@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, View, Pressable, Image, Text, Modal } from 'react-native';
+import {Alert, StyleSheet, View, Pressable, Image, Text, Modal, ScrollView } from 'react-native';
+import { ControlPresupuesto } from './components/ControlPresupuesto';
 import Header from './components/Header';
 import NuevoPresupuesto from './components/NuevoPresupuesto';
-import { ControlPresupuesto } from './components/ControlPresupuesto';
 import FormularioGasto from './components/FormularioGasto';
 
 
 export default function App(){
   const [isPresupuestoValido, setIsPresupuestoValido] = useState(false)
   const [presupuesto, setPresupuesto] = useState(0)
-  const [gastos,setGastos] = useState([
-
-  ])
+  const [gastos,setGastos] = useState([])
   const [modal,setModal] = useState(false)
 
   const handleNuevoPresupuesto = (presupuesto) => {
@@ -23,19 +21,22 @@ export default function App(){
     }
   }
   return(
-    <View styles = {styles.container}>
+
+    <ScrollView>
+    <View style ={styles.container}>
       <View style={styles.header}>
+      <View>
+  
+</View>
         <Header/>
 
         {isPresupuestoValido ? (
-          
-          
           <><ControlPresupuesto
         presupuesto={presupuesto}
         
         gastos={gastos}
         />
-        <Text> Hello</Text>
+        
         </>
     
         ):
@@ -55,19 +56,18 @@ export default function App(){
               </Modal>
 
           )}
-          
-
       {isPresupuestoValido&&(
         <Pressable
         onPress={()=>setModal(!modal)}
         >
           <Image
-            styles = {styles.imagen}
+            style = {styles.imagen}
             source={require('./assets/img/add.png')}
           />
         </Pressable>
       )}
     </View>
+    </ScrollView>
   )
 }
 
@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#c660de',
   },
  imagen:{
-  width: 60,
-  height: 60,
+  width: 70,
+  height: 70,
   position: 'absolute',
-  top: 120,
+  top: 20,
   right: 20,
+  
  },
 
-  
   header: {
     backgroundColor: '#8b2ea9'
   },
