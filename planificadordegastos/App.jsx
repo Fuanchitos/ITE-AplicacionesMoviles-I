@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import {Alert, StyleSheet, View, Pressable, Image, Text, Modal, ScrollView } from 'react-native';
+import {Alert, StyleSheet, View, Pressable, Image, Modal, ScrollView } from 'react-native';
 import { ControlPresupuesto } from './components/ControlPresupuesto';
 import Header from './components/Header';
 import NuevoPresupuesto from './components/NuevoPresupuesto';
 import FormularioGasto from './components/FormularioGasto';
-
 
 export default function App(){
   const [isPresupuestoValido, setIsPresupuestoValido] = useState(false)
@@ -21,24 +20,18 @@ export default function App(){
     }
   }
   return(
-
     <ScrollView>
     <View style ={styles.container}>
       <View style={styles.header}>
       <View>
-  
 </View>
         <Header/>
-
         {isPresupuestoValido ? (
           <><ControlPresupuesto
         presupuesto={presupuesto}
-        
         gastos={gastos}
         />
-        
         </>
-    
         ):
         ( 
         <NuevoPresupuesto 
@@ -47,6 +40,7 @@ export default function App(){
         handleNuevoPresupuesto={handleNuevoPresupuesto}/>
         ) }      
       </View>
+      
           {modal && (
             <Modal
               animationType='slide'
@@ -74,18 +68,17 @@ export default function App(){
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#c660de',
+    backgroundColor: '#CFF0D7',
   },
  imagen:{
   width: 70,
   height: 70,
   position: 'absolute',
-  top: 20,
+  bottom: 20,
   right: 20,
-  
  },
-
   header: {
-    backgroundColor: '#8b2ea9'
+    backgroundColor: '#192342',
+    minHeight: 400
   },
 });

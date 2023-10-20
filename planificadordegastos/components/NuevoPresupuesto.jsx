@@ -8,9 +8,6 @@ const NuevoPresupuesto = ({
     handleNuevoPresupuesto,
     }) => {
     
-
-
-
     return (
         <View style={styles.contenedor}>
             <Text>Desde presupuesto</Text>
