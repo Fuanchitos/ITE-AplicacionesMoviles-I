@@ -1,84 +1,107 @@
 import React, { useState } from 'react';
-import {Alert, StyleSheet, View, Pressable, Image, Modal, ScrollView } from 'react-native';
-import { ControlPresupuesto } from './components/ControlPresupuesto';
+import { Alert, StyleSheet, View, Pressable, Image, Text, Modal, ScrollView } from 'react-native';
 import Header from './components/Header';
 import NuevoPresupuesto from './components/NuevoPresupuesto';
+import ControlPresupuesto from './components/ControlPresupuesto';
 import FormularioGasto from './components/FormularioGasto';
+import { generarId } from './helper';
+import ListadoGastos from './components/ListadoGastos';
 
 export default function App(){
   const [isPresupuestoValido, setIsPresupuestoValido] = useState(false)
   const [presupuesto, setPresupuesto] = useState(0)
-  const [gastos,setGastos] = useState([])
-  const [modal,setModal] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [gastos, setGastos] = useState([
+  ])
 
-  const handleNuevoPresupuesto = (presupuesto) => {
-    if (Number(presupuesto) > 0) {
+  const handleNuevoPresupuesto = (presupuesto)=>{
+    if(Number(presupuesto) > 0){
       setIsPresupuestoValido(true)
-      console.log('presupuesto valido');
-    } else {
-      Alert.alert('Error', 'El presupuesto debe ser mayor a 0 ',['OK'])
+    } else{
+      Alert.alert('Error', 'El presupuesto debe ser mayor a 0',['OK'])
     }
+
+  }
+  const handleGasto = gasto =>{
+    if(Object.values(gasto).includes('')){
+      Alert.alert('Error', 'Hay algun espacio vacio')
+      return
+    }
+    //Agregamos el gasto al state
+    gasto.id = generarId()
+    setGastos([...gastos,gasto])  
+    console.log(gastos) 
   }
   return(
-    <ScrollView>
-    <View style ={styles.container}>
+    <View styles = {StyleSheet.container}>
+      <ScrollView>
       <View style={styles.header}>
-      <View>
-</View>
         <Header/>
-        {isPresupuestoValido ? (
-          <><ControlPresupuesto
-        presupuesto={presupuesto}
-        gastos={gastos}
-        />
-        </>
-        ):
-        ( 
-        <NuevoPresupuesto 
+        {/* Uso de operacion ternaria */}
+        {!isPresupuestoValido ?
+        (<NuevoPresupuesto
         presupuesto={presupuesto}
         setPresupuesto={setPresupuesto}
-        handleNuevoPresupuesto={handleNuevoPresupuesto}/>
-        ) }      
+        handleNuevoPresupuesto ={handleNuevoPresupuesto}
+        />) 
+        : 
+        (<><ControlPresupuesto
+        presupuesto={presupuesto}
+        gastos={gastos}/>
+        
+        </>)}
       </View>
-      
-          {modal && (
-            <Modal
-              animationType='slide'
-              visible={modal}>
-              <FormularioGasto setModal={setModal}
-              modal={modal}/>
-              </Modal>
 
-          )}
-      {isPresupuestoValido&&(
+      {isPresupuestoValido &&(
+        <ListadoGastos
+        gastos={gastos}
+        />
+      )}
+
+    </ScrollView>
+      {modal &&(
+        <Modal
+        animationType='fade'
+        visible={modal}
+        >
+        <FormularioGasto
+        setModal={setModal}
+        modal={modal}
+        handleGasto={handleGasto}
+        />
+
+        </Modal>
+      )}
+
+      {isPresupuestoValido &&(
         <Pressable
         onPress={()=>setModal(!modal)}
         >
-          <Image
-            style = {styles.imagen}
-            source={require('./assets/img/add.png')}
-          />
+        <Image
+        style={styles.imagen}
+        source={require('./assets/img/button.png')}
+        />
         </Pressable>
       )}
+
     </View>
-    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#CFF0D7',
+    backgroundColor: '#eb5262',
   },
- imagen:{
-  width: 70,
-  height: 70,
-  position: 'absolute',
-  bottom: 20,
-  right: 20,
- },
   header: {
-    backgroundColor: '#192342',
-    minHeight: 400
+    backgroundColor: '#eb5262',
+    minHeight: 645
   },
+  imagen:{
+    width: 60,
+    height: 60,
+    position: 'absolute',
+    bottom: 20,
+    right: 20
+  }
 });

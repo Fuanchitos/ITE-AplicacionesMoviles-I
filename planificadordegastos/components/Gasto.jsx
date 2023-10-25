@@ -1,78 +1,73 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { formateadorCantidad } from '../helper'
+import globalStyles from '../styles'
 
-
-const diccionarioIconos = {
-    casa: require('../assets/img/3.png'),
-    comida: require('../assets/img/1.png'),
-    salud: require('../assets/img/2.png'),
+const diccionarioIconos ={
+  Casa: require('../assets/img/icono_casa.png'),
+  Comida: require('../assets/img/icono_comida.png'),
+  Salud: require('../assets/img/icono_salud.png')
 }
 
 const Gasto = ({gasto}) => {
-    const {nombre,cantidad,categoria} = gasto
+  const {nombreGasto, cantidad, categoria} = gasto
   return (
-    <View style={styles.contenido}>
-        <View style={styles.contenedor}>
-           <View style={styles.contenedorImagen}>
-           <Image
-           style={styles.imagen}
-            source={diccionarioIconos[categoria]}/>
-            <View style={styles.contenedorTexto}>
-             <Text style={styles.categoria}>{categoria}</Text>
-             <Text style={styles.nombre}>{nombre}</Text>
-            </View>
-           </View>
-           <Text>{formateadorCantidad(gasto.cantidad)}</Text>
+    <View style={styles.contenedor}>
+      <View style={styles.contenido}>
+        <View style={styles.contenedorImagen}>
+        <Image
+        style={styles.imagen}
+        source={diccionarioIconos[categoria]}
+        />
+        <View style={styles.contenedorTexto}>
+          <Text style={styles.categoria}>{categoria}</Text>
+          <Text style={styles.nombre}>{nombreGasto}</Text>
         </View>
-    </View>>
+        </View>
+        <Text style={styles.cantidad}>{formateadorCantidad(cantidad)}</Text>
+      </View>   
+    </View>
   )
 }
-
 const styles = StyleSheet.create({
-    contenedor: {
-        ...globalStyles.contenedor,
-        marginBottom:20
-    },
-    contenido:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    contenedorImagen:{
-
-    },
-    Imagen: {
-        width:80,
-        height:80,
-        marginRight: 20,
-    },
-    contenedorImagen:{
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    contenedorTexto:{
-        flex: 1,
-        flexDirection: 1,
-        
-    },
-    categoria:{
-        color: '#a6a3a3',
-        fontSize: 18,
-        textTransform: 'uppercase',
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    nombre:{
-        fontSize: 22,
-        color: '#11215d',
-        textTransform: 'capitalize'
-    },
-
-    cantidad:{
-        fontSize: 24,
-        fontWeight: 'normal'
-    }
+  contenedor:{
+    ...globalStyles.contenedor,
+    marginBottom: 20
+  },
+  contenido:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  contenedorImagen:{
+    flex:1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  imagen:{
+    width: 80,
+    height: 80,
+    marginRight: 15
+  },
+  contenedorTexto:{
+    flex:1,
+  },
+  nombre:{
+    color: '#6ea5f7',
+    fontSize: 16,
+    textTransform: 'capitalize',
+    fontWeight: '500',
+    marginBottom: 10
+  },
+  categoria:{
+    color: '#6ea5f7',
+    fontSize: 16,
+    textTransform: 'uppercase',
+    fontWeight: 'bold'
+  },
+  cantidad:{
+    fontSize: 24,
+    fontWeight: '800'
+  }
 })
-
 export default Gasto

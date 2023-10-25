@@ -1,40 +1,34 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import Gasto from './Gasto'
 
-const Gasto = ({ gasto }) => {
-    const { nombre, cantidad, categoria } = gasto;
-    return (
-        <View style={styles.contenedor}>
-            <View>
-                <View>
-                    <Text>{categoria}</Text>
-                    <Text>{nombre}</Text>
-                </View>
-                <Text>{formateadorCantidad(gasto.cantidad)}</Text>
-            </View>
-        </View>
-    );
-};
-
-const ListadoGastos = () => {
-    return (
-        <View>
-            <Text>ListadoGastos</Text>
-            <Gasto gasto={{ nombre: 'Ejemplo', cantidad: 100, categoria: 'Ejemplo' }} />
-        </View>
-    );
-};
-
+const ListadoGastos = ({gastos}) => {
+  return (
+    <View style={styles.contenedor}>
+        <Text style={styles.tituto}>Gastos</Text>
+        {gastos.length === 0 ? <Text style={styles.textNoGastos}> No hay gastos</Text> : 
+        gastos.map(gasto=>(
+        //Aqui va un componente
+        <Gasto key={gasto.id} gasto={gasto}/>
+        ))}
+    </View>
+  )
+}
 const styles = StyleSheet.create({
-    contenedor: {
-        marginVertical: 70,
-        marginBottom: 100,
+    contenedor:{
+        marginVertical: 20,
     },
-    titulo: {
-        color: '#a09f9f',
+    tituto:{
+        color: '#a09797',
         fontSize: 30,
-        textAlign: 'center', // Corregí el error de sintaxis aquí
+        textAlign: 'center',
+        fontWeight: 'bold'
     },
-});
+    textNoGastos:{
+        fontSize: 20,
+        marginTop: 20,
+        textAlign: 'center'
+    }
+})
 
-export default ListadoGastos;
+export default ListadoGastos
