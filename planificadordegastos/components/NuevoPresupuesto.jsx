@@ -8,7 +8,7 @@ const NuevoPresupuesto = ({handleNuevoPresupuesto, presupuesto, setPresupuesto})
         <View style={styles.contenedor}>
             <Text style={styles.label}>Desde presupuesto</Text>
             <TextInput
-            keyboardType="numeric"
+            inputMode="numeric"
             placeholder="Agrega tu presupuesto: Ej. 100"
             style={styles.input}
             onChangeText={setPresupuesto}

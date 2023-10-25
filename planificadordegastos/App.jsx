@@ -11,8 +11,15 @@ export default function App(){
   const [isPresupuestoValido, setIsPresupuestoValido] = useState(false)
   const [presupuesto, setPresupuesto] = useState(0)
   const [modal, setModal] = useState(false)
-  const [gastos, setGastos] = useState([
-  ])
+  const [gastos, setGastos] = useState([])
+  const [gasto, setGasto] = useState({})
+  const [gastado, setGastado] = useState(0); // Asegúrate de tener esta línea en tu componente App
+
+
+  const handleDeleteGasto = (gastoId) => {
+    const updatedGastos = gastos.filter((gasto) => gasto.id !== gastoId);
+    setGastos(updatedGastos);
+  };
 
   const handleNuevoPresupuesto = (presupuesto)=>{
     if(Number(presupuesto) > 0){
@@ -22,16 +29,21 @@ export default function App(){
     }
 
   }
-  const handleGasto = gasto =>{
-    if(Object.values(gasto).includes('')){
-      Alert.alert('Error', 'Hay algun espacio vacio')
-      return
+  const handleGasto = (gasto) => {
+    if (Object.values(gasto).includes('')) {
+      Alert.alert('Error', 'Hay algún espacio vacío');
+      return;
     }
-    //Agregamos el gasto al state
-    gasto.id = generarId()
-    setGastos([...gastos,gasto])  
-    console.log(gastos) 
-  }
+  
+    // Agregamos el gasto al state
+    gasto.id = generarId();
+    gasto.fecha = Date.now();
+  
+    // Actualiza el estado de gastado
+    setGastado((prevGastado) => prevGastado + parseFloat(gasto.cantidad));
+  
+    setGastos([...gastos, gasto]);
+  };
   return(
     <View styles = {StyleSheet.container}>
       <ScrollView>
@@ -48,13 +60,16 @@ export default function App(){
         (<><ControlPresupuesto
         presupuesto={presupuesto}
         gastos={gastos}/>
-        
+        gastado={gastado}
         </>)}
       </View>
 
       {isPresupuestoValido &&(
         <ListadoGastos
         gastos={gastos}
+        setModal={setModal}
+        setGasto={setGasto}
+        onDeleteGasto={handleDeleteGasto}
         />
       )}
 
@@ -68,6 +83,8 @@ export default function App(){
         setModal={setModal}
         modal={modal}
         handleGasto={handleGasto}
+        setGasto={setGasto}
+        setGastado={setGastado}
         />
 
         </Modal>

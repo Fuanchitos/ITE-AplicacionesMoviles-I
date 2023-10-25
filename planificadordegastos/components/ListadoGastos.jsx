@@ -2,18 +2,26 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Gasto from './Gasto'
 
-const ListadoGastos = ({gastos}) => {
-  return (
-    <View style={styles.contenedor}>
+const ListadoGastos = ({ gastos, setModal, setGasto, onDeleteGasto }) => {
+    return (
+      <View style={styles.contenedor}>
         <Text style={styles.tituto}>Gastos</Text>
-        {gastos.length === 0 ? <Text style={styles.textNoGastos}> No hay gastos</Text> : 
-        gastos.map(gasto=>(
-        //Aqui va un componente
-        <Gasto key={gasto.id} gasto={gasto}/>
-        ))}
-    </View>
-  )
-}
+        {gastos.length === 0 ? (
+          <Text style={styles.textNoGastos}> No hay gastos</Text>
+        ) : (
+          gastos.map((gasto) => (
+            <Gasto
+              key={gasto.id}
+              gasto={gasto}
+              setModal={setModal}
+              setGasto={setGasto}
+              onDeleteGasto={onDeleteGasto} // Pasar la función onDeleteGasto
+            />
+          ))
+        )}
+      </View>
+    );
+  };
 const styles = StyleSheet.create({
     contenedor:{
         marginVertical: 20,
