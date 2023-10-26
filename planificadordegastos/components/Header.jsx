@@ -11,7 +11,7 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     header:{
-        backgroundColor: '#eb5262',
+        backgroundColor: '#2556b1',
     },
     texto:{
         textAlign: 'center',

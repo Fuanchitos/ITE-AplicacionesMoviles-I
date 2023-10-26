@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
     },
     tituto:{
-        color: '#a09797',
+        color: '#00003d',
         fontSize: 30,
         textAlign: 'center',
         fontWeight: 'bold'

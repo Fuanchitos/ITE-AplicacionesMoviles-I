@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#318897',
   },
   InputGasto: {
-    backgroundColor: '#318897',
+    backgroundColor: '#96b3ff',
     color: 'white',
     textAlign: "center"
   },

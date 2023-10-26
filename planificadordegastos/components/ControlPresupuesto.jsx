@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         padding: 10,
         fontWeight: '700',
-        color: '#a02a9c'
+        color: '#970042'
     }
 })
 export default ControlPresupuesto

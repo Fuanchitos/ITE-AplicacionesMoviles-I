@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eb5262',
   },
   header: {
-    backgroundColor: '#eb5262',
+    backgroundColor: '#014ba0',
     minHeight: 645
   },
   imagen:{

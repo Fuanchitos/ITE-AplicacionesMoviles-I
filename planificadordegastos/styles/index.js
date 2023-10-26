@@ -1,6 +1,6 @@
 const globalStyles = {
     contenedor: {
-        backgroundColor: '#ebfbff',
+        backgroundColor: '#96b3ff',
         marginHorizontal: 10,
         borderRadius: 10,
         paddingVertical: 40,

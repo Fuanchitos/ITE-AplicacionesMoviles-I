@@ -13,12 +13,13 @@ const Gasto = ({ gasto, setModal, setGasto, onDeleteGasto }) => {
   const { nombreGasto, cantidad, categoria, fecha } = gasto;
 
   const handleAcciones = () => {
+    onDeleteGasto(gasto.id);
     setModal(true);
     setGasto(gasto);
   };
 
   const handleEliminarGasto = () => {
-    onDeleteGasto(gasto.id); // Llamar a la función onDeleteGasto con el ID del gasto a eliminar
+    onDeleteGasto(gasto.id);
   };
 
   return (
@@ -36,9 +37,12 @@ const Gasto = ({ gasto, setModal, setGasto, onDeleteGasto }) => {
           </View>
           <Text style={styles.cantidad}>{formateadorCantidad(gasto.cantidad)}</Text>
         </View>
-        <View>
+        <View style={styles.botonesContainer}>
           <Pressable onPress={handleEliminarGasto}>
             <Text style={styles.buttonEliminar}>Eliminar</Text>
+          </Pressable>
+          <Pressable onPress={handleAcciones}>
+            <Text style={styles.buttonEditar}>Editar</Text>
           </Pressable>
         </View>
       </View>
@@ -69,14 +73,14 @@ const styles = StyleSheet.create({
     flex:1,
   },
   nombre:{
-    color: '#6ea5f7',
+    color: 'white',
     fontSize: 16,
     textTransform: 'capitalize',
     fontWeight: '500',
     marginBottom: 10
   },
   categoria:{
-    color: '#6ea5f7',
+    color: 'black',
     fontSize: 16,
     textTransform: 'uppercase',
     fontWeight: 'bold'
@@ -90,17 +94,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold'
   },
+  botonesContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    
+  },
   buttonEliminar: {
     backgroundColor: '#c32222',
-    borderRadius: 8, // Ajusta el valor para cambiar la curvatura de los bordes
+    borderRadius: 8,
     padding: 10,
     textAlign: 'center',
     color: 'white',
     textTransform: 'uppercase',
-    fontSize: 14, // Ajusta el tamaño del texto
-    fontWeight: 'bold', // Opcional, puedes ajustar el peso de la fuente
-    marginTop: 10, // Ajusta el espacio superior
-    // Otros estilos que desees agregar, como ancho, altura, márgenes, etc.
-  }
-})
-export default Gasto
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginRight: 10,
+  },
+  buttonEditar: {
+    backgroundColor: '#014ba0',
+    borderRadius: 8,
+    padding: 10,
+    textAlign: 'center',
+    color: 'white',
+    textTransform: 'uppercase',
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+});
+
+export default Gasto;
